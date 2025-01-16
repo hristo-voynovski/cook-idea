@@ -12,17 +12,14 @@ const RecipeSearch: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState<string>("");
 
-  const key:string = process.env.REACT_APP_SPOONACULAR_API_KEY || "";
-  console.log(
-    `The API key is ${key}`
-  );
+  const key: string = process.env.REACT_APP_SPOONACULAR_API_KEY || "";
+  console.log(`The API key is ${key}`);
 
   const fetchRecipes = async () => {
     if (!query) {
       setError("Please enter a search term");
       return;
     }
-   
 
     try {
       const response = await axios.get(
@@ -35,7 +32,6 @@ const RecipeSearch: React.FC = () => {
           },
         }
       );
-    
 
       setRecipes(response.data.results);
       setError("");
@@ -45,51 +41,43 @@ const RecipeSearch: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Recipe Search</h1>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for recipes..."
-        style={{
-          padding: "10px",
-          marginRight: "10px",
-          width: "300px",
-          border: "1px solid #ccc",
-        }}
-      />
-      <button onClick={fetchRecipes} style={{ padding: "10px 20px" }}>
-        Search
-      </button>
+    <div>
+      <div className="flex justify-center items-center bg-green-700 rounded-b-lg">
+        <div>
+          <h1 className="text-center mb-5">Recipe Search</h1>
+          <div className="flex justify-center mb-5">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search for recipes..."
+              className="p-2 mr-2 w-72 border border-gray-300"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  fetchRecipes();
+                }
+              }}
+            />
+            <button
+              onClick={fetchRecipes}
+              className="p-2 px-4 bg-blue-500 text-white"
+            >
+              Search
+            </button>
+          </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "20px",
-          marginTop: "20px",
-        }}
-      >
+          {error && <p className="text-red-500 text-center">{error}</p>}
+        </div>
+      </div>
+      <div className="flex flex-wrap justify-center gap-5 mt-5">
         {recipes.map((recipe) => (
-          <div
-            key={recipe.id}
-            style={{
-              border: "1px solid #ddd",
-              padding: "10px",
-              width: "200px",
-            }}
-          >
+          <div key={recipe.id} className="border border-gray-300 p-2 w-52">
             <img
               src={recipe.image}
               alt={recipe.title}
-              style={{ width: "100%", height: "150px", objectFit: "cover" }}
+              className="w-full h-36 object-cover"
             />
-            <h3 style={{ fontSize: "16px", margin: "10px 0" }}>
-              {recipe.title}
-            </h3>
+            <h3 className="text-lg mt-2 text-center">{recipe.title}</h3>
           </div>
         ))}
       </div>
