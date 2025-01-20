@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const fs = require("fs"); 
-
-
 interface Recipe {
   id: number;
   title: string;
@@ -14,50 +11,33 @@ const RecipeSearch: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState<string>("");
-  const [cache, setCache] = useState<Record<string, string>>({});
 
   const key: string = process.env.REACT_APP_SPOONACULAR_API_KEY || "";
   console.log(`The API key is ${key}`);
-  console.log(cache);
-
 
   const fetchRecipes = async () => {
     if (!query) {
       setError("Please enter a search term");
       return;
     }
-    console.log(cache);
-    if (cache[query]) {
 
-      return; 
-    } else {
-      console.log("Vliza v requesta")
       try {
         const response = await axios.get(
           "https://api.spoonacular.com/recipes/complexSearch",
           {
             params: {
               query,
-              number: 11,
+            number: 5,
               apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
             },
           }
         );
 
-        const data = response.data;
-        fs.writeFileSync(
-          "mockData.json",
-          JSON.stringify(data, null, 2)
-        );
-        
-
         setRecipes(response.data.results);
-        setCache({ ...cache, [query]: response.data.results });
         setError("");
       } catch (err) {
         setError("Something went wrong");
       }
-    }
   };
 
   return (
