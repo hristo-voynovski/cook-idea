@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+const fs = require("fs"); 
+
+
 interface Recipe {
   id: number;
   title: string;
@@ -11,38 +14,55 @@ const RecipeSearch: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState<string>("");
+  const [cache, setCache] = useState<Record<string, string>>({});
 
   const key: string = process.env.REACT_APP_SPOONACULAR_API_KEY || "";
   console.log(`The API key is ${key}`);
+  console.log(cache);
+
 
   const fetchRecipes = async () => {
     if (!query) {
       setError("Please enter a search term");
       return;
     }
+    console.log(cache);
+    if (cache[query]) {
 
-    try {
-      const response = await axios.get(
-        "https://api.spoonacular.com/recipes/complexSearch",
-        {
-          params: {
-            query,
-            number: 5,
-            apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
-          },
-        }
-      );
+      return; 
+    } else {
+      console.log("Vliza v requesta")
+      try {
+        const response = await axios.get(
+          "https://api.spoonacular.com/recipes/complexSearch",
+          {
+            params: {
+              query,
+              number: 11,
+              apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
+            },
+          }
+        );
 
-      setRecipes(response.data.results);
-      setError("");
-    } catch (err) {
-      setError("Something went wrong");
+        const data = response.data;
+        fs.writeFileSync(
+          "mockData.json",
+          JSON.stringify(data, null, 2)
+        );
+        
+
+        setRecipes(response.data.results);
+        setCache({ ...cache, [query]: response.data.results });
+        setError("");
+      } catch (err) {
+        setError("Something went wrong");
+      }
     }
   };
 
   return (
     <div>
-      <div className="flex justify-center items-center bg-green-700 rounded-b-lg">
+      <div className="flex justify-center items-center bg-green-500 rounded-b-lg">
         <div>
           <h1 className="text-center mb-5">Recipe Search</h1>
           <div className="flex justify-center mb-5">
@@ -51,7 +71,7 @@ const RecipeSearch: React.FC = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search for recipes..."
-              className="p-2 mr-2 w-72 border border-gray-300"
+              className="p-2 mr-2 w-72 border border-gray-300 rounded-lg"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   fetchRecipes();
@@ -60,7 +80,7 @@ const RecipeSearch: React.FC = () => {
             />
             <button
               onClick={fetchRecipes}
-              className="p-2 px-4 bg-blue-500 text-white"
+              className="p-2 px-4 bg-blue-500 text-white rounded-lg"
             >
               Search
             </button>
@@ -71,7 +91,10 @@ const RecipeSearch: React.FC = () => {
       </div>
       <div className="flex flex-wrap justify-center gap-5 mt-5">
         {recipes.map((recipe) => (
-          <div key={recipe.id} className="border border-gray-300 p-2 w-52">
+          <div
+            key={recipe.id}
+            className="border border-white p-2 w-52 bg-zinc-300"
+          >
             <img
               src={recipe.image}
               alt={recipe.title}
