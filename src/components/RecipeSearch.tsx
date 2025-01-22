@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
+import results from "../mockData.json";
+import RecipeCard from "./RecipeCard";
+
+console.log(results);
 
 interface Recipe {
   id: number;
@@ -12,8 +15,8 @@ const RecipeSearch: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState<string>("");
 
-  const key: string = process.env.REACT_APP_SPOONACULAR_API_KEY || "";
-  console.log(`The API key is ${key}`);
+  // const key: string = process.env.REACT_APP_SPOONACULAR_API_KEY || "";
+  // console.log(`The API key is ${key}`); 
 
   const fetchRecipes = async () => {
     if (!query) {
@@ -22,18 +25,18 @@ const RecipeSearch: React.FC = () => {
     }
 
       try {
-        const response = await axios.get(
-          "https://api.spoonacular.com/recipes/complexSearch",
-          {
-            params: {
-              query,
-            number: 5,
-              apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
-            },
-          }
-        );
-
-        setRecipes(response.data.results);
+        // const response = await axios.get(
+        //   "https://api.spoonacular.com/recipes/complexSearch",
+        //   {
+        //     params: {
+        //       query,
+        //     number: 5,
+        //       apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
+        //     },
+        //   }
+        // );
+        // console.log(response.data.results);
+        setRecipes(results.results);
         setError("");
       } catch (err) {
         setError("Something went wrong");
@@ -71,17 +74,7 @@ const RecipeSearch: React.FC = () => {
       </div>
       <div className="flex flex-wrap justify-center gap-5 mt-5">
         {recipes.map((recipe) => (
-          <div
-            key={recipe.id}
-            className="border border-white p-2 w-52 bg-zinc-300"
-          >
-            <img
-              src={recipe.image}
-              alt={recipe.title}
-              className="w-full h-36 object-cover"
-            />
-            <h3 className="text-lg mt-2 text-center">{recipe.title}</h3>
-          </div>
+          <RecipeCard recipe={recipe} />
         ))}
       </div>
     </div>
