@@ -44,6 +44,8 @@ const RecipeDetails: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (!recipe || !analyzedInstructions) return <p>Recipe not found.</p>;
 
+  console.log(recipe.summary);
+
   return (
     <div className="recipe-details">
       <h1>{recipe.title}</h1>
