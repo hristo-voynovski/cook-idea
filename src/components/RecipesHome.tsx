@@ -10,7 +10,7 @@ interface Recipe {
   image: string;
 }
 
-const RecipeSearch: React.FC = () => {
+const RecipesHome: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState<string>("");
@@ -24,23 +24,23 @@ const RecipeSearch: React.FC = () => {
       return;
     }
 
-      try {
-        // const response = await axios.get(
-        //   "https://api.spoonacular.com/recipes/complexSearch",
-        //   {
-        //     params: {
-        //       query,
-        //     number: 5,
-        //       apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
-        //     },
-        //   }
-        // );
-        // console.log(response.data.results);
-        setRecipes(results.results);
-        setError("");
-      } catch (err) {
-        setError("Something went wrong");
-      }
+    try {
+      // const response = await axios.get(
+      //   "https://api.spoonacular.com/recipes/complexSearch",
+      //   {
+      //     params: {
+      //       query,
+      //       number: 5,
+      //       apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
+      //     },
+      //   }
+      // );
+      // console.log(response.data.results);
+      setRecipes(results.results);
+      setError("");
+    } catch (err) {
+      setError("Something went wrong");
+    }
   };
 
   return (
@@ -81,4 +81,5 @@ const RecipeSearch: React.FC = () => {
   );
 };
 
-export default RecipeSearch;
+export default RecipesHome;
+

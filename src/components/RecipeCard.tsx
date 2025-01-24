@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface Recipe {
   id: number;
   title: string;
@@ -7,12 +9,14 @@ interface Recipe {
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   return (
     <div key={recipe.id} className="border border-white p-2 w-52 bg-zinc-300">
-      <img
-        src={recipe.image}
-        alt={recipe.title}
-        className="w-full h-36 object-cover"
-      />
-      <h3 className="text-lg mt-2 text-center">{recipe.title}</h3>
+      <Link to={`/recipe/${recipe.id}`}>
+        <img
+          src={recipe.image}
+          alt={recipe.title}
+          className="w-full h-36 object-cover"
+        />
+        <h3 className="text-lg mt-2 text-center">{recipe.title}</h3>
+      </Link>
     </div>
   );
 };
