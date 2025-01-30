@@ -6,7 +6,7 @@ export interface Recipe {
 
 export interface SearchState {
     query: string;
-    recipes: Recipe[];
+    results: Recipe[];
     loading: boolean;
     error: string | null;
 }

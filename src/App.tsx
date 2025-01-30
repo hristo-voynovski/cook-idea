@@ -1,17 +1,25 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React from "react";
-import RecipesHome from "./components/RecipesHome";
-import RecipeDetails from "./components/RecipeDetails";
+// App.tsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import RecipesHome from "./pages/RecipesHome";
+// import HomePage from "./pages/HomePage";
+// import AboutPage from "./pages/AboutPage";
 
-function App() {
+const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<RecipesHome />} />
-        <Route path="/recipe/:id" element={<RecipeDetails />} />
-      </Routes>
-    </Router>
+    <BrowserRouter>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow container mx-auto px-4 py-8">
+          <Routes>
+            {/* <Route path="/" element={<HomePage />} /> */}
+            <Route path="/" element={<RecipesHome />} />
+            {/* <Route path="/about" element={<AboutPage />} /> */}
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
