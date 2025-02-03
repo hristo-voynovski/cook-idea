@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import results from "../mockData.json";
+// import results from "../mockData.json";
 import RecipeCard from "../components/RecipeCard";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchRecipes } from "../store/slices/searchSlice";
-import SearchComponent from "../components/SearchComponent";
 
 const RecipesHome: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +16,6 @@ const RecipesHome: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      <SearchComponent/>
       <div className="flex flex-wrap justify-center gap-5 mt-5 p-4">
         {loading && <p className="text-center w-full">Loading recipes...</p>}
         {error && <p className="text-red-500 text-center w-full">{error}</p>}

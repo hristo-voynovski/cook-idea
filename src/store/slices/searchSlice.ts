@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Recipe, SearchState } from '../../types/recipe';
-import results from '../../mockData.json'; // Temporary mock data
+import { Recipe, SearchState } from '../../types/types';
+// import results from '../../mockData.json'; 
 import axios from 'axios';
 
 const initialState: SearchState = {
@@ -14,13 +14,6 @@ export const fetchRecipes = createAsyncThunk(
   'search/fetchRecipes',
   async (query: string, { rejectWithValue }) => {
     try {
-      // Simulated API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Actual API implementation would look like:
-      // const response = await axios.get(`/api/recipes?q=${query}`);
-      // return response.data.results;
-
       const response = await axios.get(
         "https://api.spoonacular.com/recipes/complexSearch",
         {
@@ -31,9 +24,9 @@ export const fetchRecipes = createAsyncThunk(
           },
         }
       );
-      console.log(response.data.results);
+   
       
-      return results.results as Recipe[];
+      return response.data.results as Recipe[];
     } catch (error) {
       return rejectWithValue('Failed to fetch recipes');
     }

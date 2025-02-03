@@ -8,7 +8,7 @@ interface Recipe {
 
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   return (
-    <div key={recipe.id} className="border border-white p-2 w-52 bg-zinc-300">
+    <div className="border border-white p-2 w-52 bg-zinc-200 rounded-lg">
       <Link to={`/recipe/${recipe.id}`}>
         <img
           src={recipe.image}

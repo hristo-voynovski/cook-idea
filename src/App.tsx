@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import RecipesHome from "./pages/RecipesHome";
+import RecipeDetails from "./pages/RecipeDetails";
 // import HomePage from "./pages/HomePage";
 // import AboutPage from "./pages/AboutPage";
 
@@ -14,6 +15,8 @@ const App = () => {
           <Routes>
             {/* <Route path="/" element={<HomePage />} /> */}
             <Route path="/" element={<RecipesHome />} />
+            <Route path="/recipe/:id" element={<RecipeDetails />} />
+
             {/* <Route path="/about" element={<AboutPage />} /> */}
           </Routes>
         </main>

@@ -1,9 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
 import searchReducer from "./slices/searchSlice";
+import recipeDetailsReducer from "./slices/recipeDetailsSlice";
 
 export const store = configureStore({
     reducer: {
-        search : searchReducer
+        search : searchReducer,
+        recipeDetails : recipeDetailsReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

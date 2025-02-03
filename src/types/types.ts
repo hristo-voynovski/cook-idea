@@ -10,3 +10,10 @@ export interface SearchState {
     loading: boolean;
     error: string | null;
 }
+
+export interface RecipeDetailsState {
+    recipe: any;
+    analyzedInstructions: any[];
+    loading: boolean;
+    error: string | null;
+  }
