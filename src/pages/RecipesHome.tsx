@@ -15,7 +15,7 @@ const RecipesHome: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-full">
       <div className="flex flex-wrap justify-center gap-5 mt-5 p-4">
         {loading && <p className="text-center w-full">Loading recipes...</p>}
         {error && <p className="text-red-500 text-center w-full">{error}</p>}
