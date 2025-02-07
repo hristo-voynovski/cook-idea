@@ -13,7 +13,7 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
         <img
           src={recipe.image}
           alt={recipe.title}
-          className="w-full h-36 object-cover"
+          className="w-full h-36 object-cover rounded-lg"
         />
         <h3 className="text-lg mt-2 text-center">{recipe.title}</h3>
       </Link>

@@ -17,6 +17,9 @@ const RecipeDetails: React.FC = () => {
     }
   }, [dispatch, id]);
 
+
+
+  //Create and add a nutrition element for recipe 
   if (loading)
     return <p className="text-center text-gray-500 mt-5">Loading...</p>;
 

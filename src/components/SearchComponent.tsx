@@ -35,7 +35,7 @@ const SearchComponent: React.FC = () => {
         />
         <button
           type="submit"
-          className="p-2 px-4 bg-green-500 text-white rounded-r-lg hover:bg-green-600 transition-colors"
+          className="p-2 px-4 bg-green-600 text-white rounded-r-lg hover:bg-green-700 transition-colors"
         >
           Search
         </button>
