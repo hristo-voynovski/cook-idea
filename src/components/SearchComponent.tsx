@@ -30,7 +30,7 @@ const SearchComponent: React.FC = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search for recipes..."
-          className="p-2 w-full border border-gray-300 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-green-500"
+          className="p-2 w-full border border-gray-300 dark:border-gray-600 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
           aria-label="Search recipes"
         />
         <button

@@ -10,7 +10,7 @@ import AIRecipePrompt from "./pages/AIRecipePrompt";
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-200">
         <Header />
         <main className="flex-grow container mx-auto px-4 py-8">
           <Routes>
