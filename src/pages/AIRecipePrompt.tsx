@@ -1,12 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { generateRecipe, clearRecipe } from "../store/slices/aiRecipeSlice";
+import {
+  generateDishSummary,
+  clearRecipe,
+} from "../store/slices/aiRecipeSlice";
 
 const AIRecipePrompt: React.FC = () => {
   const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
-  const { recipe, loading, error } = useAppSelector((state) => state.aiRecipe);
+  const { dishName, description, recipe, loading, error, step } =
+    useAppSelector((state) => state.aiRecipe);
 
   useEffect(() => {
     return () => {
@@ -20,7 +24,8 @@ const AIRecipePrompt: React.FC = () => {
       textarea.style.height = "auto";
       const newHeight = Math.min(textarea.scrollHeight, 600);
       textarea.style.height = `${newHeight}px`;
-      textarea.style.overflowY = textarea.scrollHeight > 600 ? "auto" : "hidden";
+      textarea.style.overflowY =
+        textarea.scrollHeight > 600 ? "auto" : "hidden";
     }
   };
 
@@ -32,15 +37,24 @@ const AIRecipePrompt: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (text.trim()) {
-      dispatch(generateRecipe(text.trim()));
+      dispatch(generateDishSummary(text.trim()));
     }
   };
+
+  // const handleGenerateFullRecipe = async () => {
+  //   if (recipe?.dishName && recipe.description) {
+  //     dispatch(generateFullRecipe({ dishName: recipe.dishName, description: recipe.description }));
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex flex-col items-center p-5">
       <h2 className="text-xl font-bold mb-4">AI Recipe Prompt</h2>
       <div className="w-full max-w-4xl space-y-8">
-        <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-8">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center space-y-8"
+        >
           <textarea
             ref={textareaRef}
             value={text}
@@ -66,10 +80,12 @@ const AIRecipePrompt: React.FC = () => {
           </div>
         )}
 
-        {recipe && (
-          <div className="prose prose-lg max-w-none bg-white p-6 rounded-lg shadow-md">
-            <div dangerouslySetInnerHTML={{ __html: recipe.replace(/\n/g, '<br />') }} />
-          </div>
+        {step === "summary" && dishName && (
+          <>
+            <h3 className="text-lg font-bold">{dishName}</h3>
+            <p>{description}</p>
+            <button>I want to cook this!</button>
+          </>
         )}
       </div>
     </div>
