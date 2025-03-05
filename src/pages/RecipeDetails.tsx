@@ -17,32 +17,54 @@ const RecipeDetails: React.FC = () => {
     }
   }, [dispatch, id]);
 
-
-
-  //Create and add a nutrition element for recipe 
+  //Create and add a nutrition element for recipe
   if (loading)
     return <p className="text-center text-gray-500 mt-5">Loading...</p>;
 
-  if (error)
-    return <p className="text-center text-red-500 mt-5">{error}</p>;
+  if (error) return <p className="text-center text-red-500 mt-5">{error}</p>;
 
   if (!recipe || !analyzedInstructions)
     return <p className="text-center text-red-500 mt-5">Recipe not found.</p>;
 
   return (
     <div className="min-h-screen flex flex-col items-center p-5">
-      <h1 className="text-3xl font-bold text-center mb-4">{recipe.title}</h1>
-      <img
-        src={recipe.image}
-        alt={recipe.title}
-        className="w-full max-w-lg rounded-lg shadow-lg"
-      />
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:gap-8 w-full max-w-7xl">
+        <div className="lg:w-1/2">
+          <h1 className="text-3xl font-bold text-center lg:text-left mb-4">{recipe.title}</h1>
+          <div className="relative">
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+
+        {/* Ingredients */}
+        {recipe.extendedIngredients?.length > 0 && (
+          <div className="lg:w-1/2 mt-6 lg:mt-0 lg:flex lg:flex-col lg:justify-center">
+            <h2 className="text-2xl font-semibold mb-4 text-right">Ingredients:</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {recipe.extendedIngredients.map((ingredient: any) => (
+                <div
+                  key={ingredient.id}
+                  className="bg-white p-3 rounded-lg shadow-sm flex items-center"
+                >
+                  <span className="text-gray-700">{ingredient.original}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+      {/* Summary */}
       <div className="bg-white shadow-md rounded-lg p-5 max-w-3xl mt-6">
         <p
           className="text-gray-700"
           dangerouslySetInnerHTML={{ __html: recipe.summary }}
         />
       </div>
+      {/* Instructions */}
       <h2 className="text-2xl font-semibold mt-6 mb-3">Instructions</h2>
       <div className="max-w-3xl w-full">
         {analyzedInstructions.map((instruction: any, index: number) => (
