@@ -105,7 +105,7 @@ const AIRecipePrompt: React.FC = () => {
             <h3 className="text-lg font-bold dark:text-white">{dishName}</h3>
             <p className="dark:text-white">{description}</p>
             <button
-              className="bg-white dark:bg-gray-800 border border-green-500 rounded-lg text-black dark:text-white"
+              className="p-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
               onClick={handleGenerateFullRecipe}
             >
               I want to cook this!
