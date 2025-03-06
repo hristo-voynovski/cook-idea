@@ -63,7 +63,7 @@ const RecipeDetails: React.FC = () => {
                   {displayRecipe.extendedIngredients.map((ingredient: any) => (
                     <div
                       key={ingredient.id}
-                      className="bg-white p-3 rounded-lg shadow-sm flex items-center dark:bg-gray-800"
+                      className="bg-gray-200 p-3 rounded-lg shadow-sm flex items-center dark:bg-gray-800"
                     >
                       <span className="text-gray-700 dark:text-white">{ingredient.original}</span>
                     </div>
@@ -93,7 +93,7 @@ const RecipeDetails: React.FC = () => {
       </div>
 
       {/* Summary */}
-      <div className="bg-white shadow-md rounded-lg p-5 max-w-3xl mt-6 dark:bg-gray-800">
+      <div className="bg-gray-200 shadow-md rounded-lg p-5 max-w-3xl mt-6 dark:bg-gray-800">
         <p
           className="text-gray-700 dark:text-white"
           dangerouslySetInnerHTML={{ __html: displayRecipe.summary }}
