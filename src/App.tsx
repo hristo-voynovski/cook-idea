@@ -18,6 +18,7 @@ const App = () => {
             <Route path="/" element={<RecipesHome />} />
             <Route path="/recipe/:id" element={<RecipeDetails />} />
             <Route path="/ai-recipe-prompt" element={<AIRecipePrompt />} />
+            <Route path="/recipe/generated" element={<RecipeDetails />} />
 
             {/* <Route path="/about" element={<AboutPage />} /> */}
           </Routes>

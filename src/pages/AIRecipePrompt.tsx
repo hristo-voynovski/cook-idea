@@ -1,22 +1,35 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import {
   generateDishSummary,
+  generateFullRecipe,
   clearRecipe,
 } from "../store/slices/aiRecipeSlice";
 
 const AIRecipePrompt: React.FC = () => {
   const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const isNavigatingToRecipeRef = useRef(false);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { dishName, description, recipe, loading, error, step } =
     useAppSelector((state) => state.aiRecipe);
 
   useEffect(() => {
     return () => {
-      dispatch(clearRecipe());
+      if (!isNavigatingToRecipeRef.current) {
+        dispatch(clearRecipe());
+      }
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    if (step === 'full' && recipe) {
+      isNavigatingToRecipeRef.current = true;
+      navigate('/recipe/ai-generated');
+    }
+  }, [step, recipe, navigate]);
 
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
@@ -41,15 +54,22 @@ const AIRecipePrompt: React.FC = () => {
     }
   };
 
-  // const handleGenerateFullRecipe = async () => {
-  //   if (recipe?.dishName && recipe.description) {
-  //     dispatch(generateFullRecipe({ dishName: recipe.dishName, description: recipe.description }));
-  //   }
-  // };
+  const handleGenerateFullRecipe = async () => {
+    if (dishName && description) {
+      dispatch(
+        generateFullRecipe({
+          dishName,
+          description,
+        })
+      );
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center p-5">
-      <h2 className="text-xl font-bold mb-4 dark:text-white">AI Recipe Prompt</h2>
+      <h2 className="text-xl font-bold mb-4 dark:text-white">
+        AI Recipe Prompt
+      </h2>
       <div className="w-full max-w-4xl space-y-8">
         <form
           onSubmit={handleSubmit}
@@ -84,7 +104,12 @@ const AIRecipePrompt: React.FC = () => {
           <>
             <h3 className="text-lg font-bold dark:text-white">{dishName}</h3>
             <p className="dark:text-white">{description}</p>
-            <button className="bg-white dark:bg-gray-800 border border-green-500 rounded-lg text-black dark:text-white">I want to cook this!</button>
+            <button
+              className="bg-white dark:bg-gray-800 border border-green-500 rounded-lg text-black dark:text-white"
+              onClick={handleGenerateFullRecipe}
+            >
+              I want to cook this!
+            </button>
           </>
         )}
       </div>

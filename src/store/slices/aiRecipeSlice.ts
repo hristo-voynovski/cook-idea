@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Groq } from 'groq-sdk';
+import { Recipe, AnalyzedInstruction } from '../../types/types';
 
 interface AIRecipeState {
   dishName: string | null;
   description: string | null;
-  recipe: string | null;
+  recipe: Recipe | null;
+  analyzedInstructions: AnalyzedInstruction[];
   loading: boolean;
   error: string | null;
   step: 'summary' | 'full' | null;
@@ -14,6 +16,7 @@ const initialState: AIRecipeState = {
   dishName: null,
   description: null,
   recipe: null,
+  analyzedInstructions: [],
   loading: false,
   error: null,
   step: null,
@@ -56,7 +59,7 @@ export const generateDishSummary = createAsyncThunk(
 
 export const generateFullRecipe = createAsyncThunk(
   'aiRecipe/generateFullRecipe',
-  async (prompt: string, { rejectWithValue }) => {
+  async ({ dishName, description }: { dishName: string; description: string }, { rejectWithValue }) => {
     try {
       const groq = new Groq({
         apiKey: process.env.REACT_APP_GROQ_API_KEY,
@@ -67,15 +70,13 @@ export const generateFullRecipe = createAsyncThunk(
         messages: [
           {
             role: 'system',
-            content: `You are a cooking assistant. In the previous prompt, the user requested a suggestion for a dish name and a brief description based on their situation. You recommended a dish name and description, and the user accepted the suggestion. 
+            content: `You are a cooking assistant. In the previous prompt, the user requested a suggestion for a dish name and a brief description based on their situation. You recommended ${dishName} with the following description: ${description}. The user accepted the suggestion. 
 
-            Now, based on them, generate a **detailed recipe** in JSON format following this template:
+            Now, based on that suggestion, generate a **detailed recipe** in JSON format following this template:
             
-            \`\`\`json
             {
               "recipe": {
                 "title": "Dish Name",
-                "image": "https://example.com/dish-image.jpg",
                 "extendedIngredients": [
                   {
                     "id": 1,
@@ -104,9 +105,8 @@ export const generateFullRecipe = createAsyncThunk(
                 }
               ]
             }
-            \`\`\`
             
-            Ensure the JSON response follows this structure exactly. Do **not** include any explanations—just return the raw JSON output.`,
+            Return ONLY the JSON object, no markdown formatting or explanations.`,
           },
         ],
         model: 'mixtral-8x7b-32768',
@@ -115,15 +115,17 @@ export const generateFullRecipe = createAsyncThunk(
       });
 
       const response = completion.choices[0]?.message?.content || 'No response';
-      console.log(response);
-      return response;
+      const cleanResponse = response.replace(/```json\n?|\n?```/g, '').trim();
+      console.log('Clean response:', cleanResponse);
+      const parsedResponse = JSON.parse(cleanResponse);
+      return parsedResponse;
 
     } catch (error: any) {
+      console.error('Error generating recipe:', error);
       return rejectWithValue(error.message || 'Failed to generate recipe');
     }
   }
 );
-
 
 const aiRecipeSlice = createSlice({
   name: 'aiRecipe',
@@ -154,9 +156,24 @@ const aiRecipeSlice = createSlice({
       .addCase(generateDishSummary.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      });
+      })
+      .addCase(generateFullRecipe.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.step = 'full';
+      })
+      .addCase(generateFullRecipe.fulfilled, (state, action) => {
+        state.loading = false;
+        state.recipe = action.payload.recipe;
+        state.analyzedInstructions = action.payload.analyzedInstructions;
+        state.step = 'full';
+      })
+      .addCase(generateFullRecipe.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
   },
 });
 
 export const { clearRecipe } = aiRecipeSlice.actions;
-export default aiRecipeSlice.reducer; 
+export default aiRecipeSlice.reducer;

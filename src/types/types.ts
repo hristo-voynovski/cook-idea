@@ -14,8 +14,8 @@ export interface SearchState {
 }
 
 export interface RecipeDetailsState {
-    recipe: any;
-    analyzedInstructions: any[];
+    recipe: Recipe | null;
+    analyzedInstructions: AnalyzedInstruction[];
     loading: boolean;
     error: string | null;
 }
@@ -27,5 +27,13 @@ export interface ExtendedIngredient {
     amount: number;
     unit: string;
     image?: string;
+}
+
+export interface AnalyzedInstruction {
+    name: string;
+    steps: {
+        number: number;
+        step: string;
+    }[];
 }
 
