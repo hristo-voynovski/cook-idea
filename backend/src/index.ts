@@ -2,8 +2,10 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
+import cron from "node-cron";
+import { updateRecipeOfTheDay } from "./services/recipeService";
+import recipeRoutes from "./routes/recipeRoutes";
 import authRoutes from "./routes/auth";
-
 dotenv.config();
 
 const app = express();
@@ -25,7 +27,8 @@ app.use((req: any, res, next) => {
   next();
 });
 
-app.use("/auth", authRoutes);
+app.use("/api/recipes", recipeRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
     res.send("Request received");
@@ -34,6 +37,12 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
+
+cron.schedule('0 0 * * *', async () => {
+  console.log('Updating recipe of the day...');
+  await updateRecipeOfTheDay();
+  console.log('Recipe of the day updated successfully');
+});
 
 
 
