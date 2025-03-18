@@ -23,7 +23,7 @@ export const fetchRandomRecipe = async () => {
       id: recipe.id,
       title: recipe.title,
       image_url: recipe.image,
-      instructions: recipe.instructions,
+      ready_in_minutes: recipe.readyInMinutes,
       ingredients: recipe.extendedIngredients,
     };
   } catch (error) {

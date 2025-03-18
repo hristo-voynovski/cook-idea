@@ -43,7 +43,3 @@ cron.schedule('0 0 * * *', async () => {
   await updateRecipeOfTheDay();
   console.log('Recipe of the day updated successfully');
 });
-
-
-
-

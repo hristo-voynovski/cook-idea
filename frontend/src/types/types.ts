@@ -37,3 +37,10 @@ export interface AnalyzedInstruction {
     }[];
 }
 
+export interface RecipeOfTheDay {
+    recipe: Recipe | null;
+    loading: boolean;
+    error: string | null;
+}
+
+

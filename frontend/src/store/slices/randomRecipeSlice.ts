@@ -19,6 +19,7 @@ export const fetchRandomRecipe = createAsyncThunk(
                 throw new Error('Failed to fetch random recipe');
             }
             const data = await response.json();
+            console.log(data);
             return data.recipes[0];
         } catch (error) {
             return rejectWithValue('Failed to fetch random recipe');

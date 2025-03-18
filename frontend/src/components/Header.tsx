@@ -5,17 +5,25 @@ import SearchComponent from "./SearchComponent";
 import RandomRecipe from "./RandomRecipe";
 import AIRecipeButton from "./AIRecipeButton";
 import { useTheme } from "../context/ThemeContext";
+import { clearResults } from "../store/slices/searchSlice";
+import { useDispatch } from "react-redux";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isDarkMode, toggleDarkMode } = useTheme();
+
+  const handleClick = () => {
+    dispatch(clearResults());
+    navigate("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md transition-colors duration-200">
       <div className="grid grid-cols-3 justify-between items-center px-4 py-3">
         <div
           className="flex grow-2 flex-start cursor-pointer"
-          onClick={() => navigate("/")}
+          onClick= {handleClick}
         >
           <span className="text-2xl font-bold text-green-600">Cook</span>
           <span className="text-2xl font-bold text-black dark:text-white">Idea</span>

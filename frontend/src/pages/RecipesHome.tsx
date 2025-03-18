@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import RecipeCard from "../components/RecipeCard";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchRecipes } from "../store/slices/searchSlice";
+import RecipeOfTheDay from "../components/RecipeOfTheDay";
 
 const RecipesHome: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,11 +23,7 @@ const RecipesHome: React.FC = () => {
         {results.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
-        {!loading && !error && results.length === 0 && (
-          <p className="text-gray-500 text-center w-full">
-            No recipes found. Try searching for something!
-          </p>
-        )}
+        {!loading && !error && results.length === 0 && <RecipeOfTheDay />}
       </div>
     </div>
   );

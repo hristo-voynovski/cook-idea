@@ -4,11 +4,12 @@ import { useAppDispatch } from "../store/hooks";
 import { setSearchQuery, fetchRecipes } from "../store/slices/searchSlice";
 
 const SearchComponent: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  //set a type for the searchTerm
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleSubmit =  async(e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const trimmedTerm = searchTerm.trim();
     if (trimmedTerm) {
@@ -16,14 +17,13 @@ const SearchComponent: React.FC = () => {
 
       await dispatch(fetchRecipes(trimmedTerm));
       navigate(`/`);
-      
+
       setSearchTerm("");
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="w-full">
-
       <div className="flex items-center">
         <input
           type="text"
