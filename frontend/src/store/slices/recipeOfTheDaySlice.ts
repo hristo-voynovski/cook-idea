@@ -1,10 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { RecipeOfTheDay } from "../../types/types";
+import { RecipeOfTheDay, SupabaseRecipe, Recipe } from "../../types/types";
 
 const initialState: RecipeOfTheDay = {
   recipe: null,
   loading: false,
   error: null,
+};
+
+// Transform Supabase recipe format to our frontend Recipe format
+const transformRecipe = (supabaseRecipe: SupabaseRecipe): Recipe => {
+  return {
+    id: supabaseRecipe.id,
+    title: supabaseRecipe.title,
+    image: supabaseRecipe.image_url,
+    readyInMinutes: supabaseRecipe.ready_in_minutes,
+    summary: "", // Add default values for required fields not in Supabase
+    extendedIngredients: supabaseRecipe.ingredients || []
+  };
 };
 
 export const fetchRecipeOfTheDay = createAsyncThunk(
@@ -17,8 +29,9 @@ export const fetchRecipeOfTheDay = createAsyncThunk(
       if (!response.ok) {
         throw new Error("Failed to fetch recipe of the day");
       }
-      const recipe = await response.json();
-      return recipe;
+      const supabaseRecipe = await response.json();
+      // Transform the data to match our Recipe interface
+      return transformRecipe(supabaseRecipe);
     } catch (error) {
       return rejectWithValue("Failed to fetch recipe of the day");
     }
