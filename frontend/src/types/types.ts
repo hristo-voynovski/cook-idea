@@ -50,5 +50,10 @@ export interface SupabaseRecipe {
     image_url: string;
     ready_in_minutes: number;
     ingredients?: any[];
-    // Add any other fields that come from Supabase
+}
+
+export interface FeaturedRecipes {
+    recipes: Recipe[];
+    loading: boolean;
+    error: string | null;
 }

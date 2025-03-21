@@ -7,14 +7,13 @@ const initialState: RecipeOfTheDay = {
   error: null,
 };
 
-// Transform Supabase recipe format to our frontend Recipe format
 const transformRecipe = (supabaseRecipe: SupabaseRecipe): Recipe => {
   return {
     id: supabaseRecipe.id,
     title: supabaseRecipe.title,
     image: supabaseRecipe.image_url,
     readyInMinutes: supabaseRecipe.ready_in_minutes,
-    summary: "", // Add default values for required fields not in Supabase
+    summary: "", 
     extendedIngredients: supabaseRecipe.ingredients || []
   };
 };

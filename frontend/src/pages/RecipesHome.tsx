@@ -4,6 +4,7 @@ import RecipeCard from "../components/RecipeCard";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchRecipes } from "../store/slices/searchSlice";
 import RecipeOfTheDay from "../components/RecipeOfTheDay";
+import FeaturedRecipes from "../components/FeaturedRecipes";
 
 const RecipesHome: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +24,12 @@ const RecipesHome: React.FC = () => {
         {results.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
-        {!loading && !error && results.length === 0 && <RecipeOfTheDay />}
+        {!loading && !error && results.length === 0 && (
+          <>
+            <RecipeOfTheDay />
+            <FeaturedRecipes />
+          </>
+        )}
       </div>
     </div>
   );
