@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchFeaturedRecipes } from "../store/slices/featuredRecipesSlice";
 import { Clock, BookOpen } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const FeaturedRecipes = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { recipes, loading, error } = useAppSelector(
     (state) => state.featuredRecipes
   );
@@ -71,7 +72,7 @@ const FeaturedRecipes = () => {
               </div>
             </div>
             <div className="p-4 pt-0">
-              <button className="inline-flex items-center justify-center text-green-500 hover:text-green-400 p-0 h-auto">
+              <button className="inline-flex items-center justify-center text-green-500 hover:text-green-400 p-0 h-auto" onClick={() => navigate(`/recipe/${recipe.id}`)}>
                 View Recipe <BookOpen className="w-4 h-4 ml-1" />
               </button>
             </div>

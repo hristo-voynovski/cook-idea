@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchRecipeOfTheDay } from "../store/slices/recipeOfTheDaySlice";
 import { Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const RecipeOfTheDay: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { recipe, loading, error } = useAppSelector(
     (state) => state.recipeOfTheDay
   );
@@ -85,7 +87,10 @@ const RecipeOfTheDay: React.FC = () => {
               </div>
             </div>
 
-            <button className="w-full px-3 py-2 text-xs font-medium rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none">
+            <button 
+            className="w-full px-3 py-2 text-xs font-medium rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none"
+            onClick={() => navigate(`/recipe/${recipe.id}`)}
+            >
               View Recipe
             </button>
           </div>

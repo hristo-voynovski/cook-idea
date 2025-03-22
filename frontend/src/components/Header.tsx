@@ -25,6 +25,7 @@ const Header: React.FC = () => {
           className="flex grow-2 flex-start cursor-pointer"
           onClick= {handleClick}
         >
+          <img src="images/cook_idea_icon.png" alt="CookIdea" className="w-8 h-8 mr-2" />
           <span className="text-2xl font-bold text-green-600">Cook</span>
           <span className="text-2xl font-bold text-black dark:text-white">Idea</span>
         </div>
