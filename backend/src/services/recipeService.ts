@@ -26,10 +26,10 @@ export const fetchRandomRecipe = async (count: number) => {
             ready_in_minutes: recipe.readyInMinutes,
             ingredients: recipe.extendedIngredients,
         }));
-  } catch (error) {
-    console.error("Error fetching random recipe:", error);
-    return null;
-}
+    } catch (error) {
+        console.error("Error fetching random recipe:", error);
+        return null;
+    }
 };
 
 export const updateRecipeOfTheDay = async () => {
@@ -43,7 +43,11 @@ export const updateRecipeOfTheDay = async () => {
         .insert([recipe]);
 
     if (error) {
-        console.error("Error inserting recipe of the day:", error);
+        if (error.code === 'PGRST204') {
+            //if the table is empty, insert the recipe
+            await supabase.from('recipe_of_the_day').insert(recipe);
+            return data;
+        }
         return null;
     }
 

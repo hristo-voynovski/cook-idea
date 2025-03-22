@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchFeaturedRecipes } from "../store/slices/featuredRecipesSlice";
 import { Clock, BookOpen } from "lucide-react";
-// import placeholderImage from "../../public/images/missing-recipe-placeholder.jpg";
 
 const FeaturedRecipes = () => {
   const dispatch = useAppDispatch();

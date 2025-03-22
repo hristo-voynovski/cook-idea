@@ -49,3 +49,5 @@ cron.schedule('0 0 * * 1', async () => {
   await updateFeaturedRecipes();
   console.log('Featured recipes updated successfully');   
 });
+
+
