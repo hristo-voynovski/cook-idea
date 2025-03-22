@@ -88,7 +88,7 @@ const RecipeOfTheDay: React.FC = () => {
             </div>
 
             <button 
-            className="w-full px-3 py-2 text-xs font-medium rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none"
+            className="w-full px-3 py-4 text-xs font-medium rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none"
             onClick={() => navigate(`/recipe/${recipe.id}`)}
             >
               View Recipe

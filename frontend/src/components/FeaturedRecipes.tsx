@@ -60,7 +60,7 @@ const FeaturedRecipes = () => {
             </div>
             <div className="p-4 flex-1">
               <h3 className="font-bold mb-2 line-clamp-2">{recipe.title}</h3>
-              <div className="flex items-center gap-3 text-sm text-gray-300">
+              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
                 <div className="flex items-center">
                   <Clock className="w-3 h-3 mr-1 text-green-500" />
                   {recipe.readyInMinutes}
