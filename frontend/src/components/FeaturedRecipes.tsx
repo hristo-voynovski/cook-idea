@@ -34,7 +34,7 @@ const FeaturedRecipes = () => {
         </div>
       </section>
     );
-  } 
+  }
 
   return (
     <section>
@@ -45,13 +45,13 @@ const FeaturedRecipes = () => {
         {recipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden h-full flex flex-col"
+            className="group bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded-lg overflow-hidden h-full flex flex-col transition-all hover:shadow-md"
           >
             <div className="relative h-48">
               <img
                 src={recipe.image}
                 alt={recipe.title}
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                 onError={(e) => {
                   const img = e.target as HTMLImageElement;
                   img.src = "/images/missing-recipe-placeholder.jpg";
@@ -72,7 +72,10 @@ const FeaturedRecipes = () => {
               </div>
             </div>
             <div className="p-4 pt-0">
-              <button className="inline-flex items-center justify-center text-green-500 hover:text-green-400 p-0 h-auto" onClick={() => navigate(`/recipe/${recipe.id}`)}>
+              <button
+                className="inline-flex items-center justify-center text-green-500 hover:text-green-400 p-0 h-auto"
+                onClick={() => navigate(`/recipe/${recipe.id}`)}
+              >
                 View Recipe <BookOpen className="w-4 h-4 ml-1" />
               </button>
             </div>
