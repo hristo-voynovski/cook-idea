@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom";
 import { Clock } from "lucide-react";
-
-interface Recipe {
-  id: number;
-  title: string;
-  image: string;
-  readyInMinutes: number;
-}
+import { Recipe } from "../types/types";
 
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   return (

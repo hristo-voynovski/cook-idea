@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchFeaturedRecipes } from "../store/slices/featuredRecipesSlice";
 import { Clock, BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
 const FeaturedRecipes = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

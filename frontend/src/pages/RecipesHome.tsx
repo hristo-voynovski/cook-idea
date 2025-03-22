@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-// import results from "../mockData.json";
 import RecipeCard from "../components/RecipeCard";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchRecipes } from "../store/slices/searchSlice";
 import RecipeOfTheDay from "../components/RecipeOfTheDay";
 import FeaturedRecipes from "../components/FeaturedRecipes";
+import SearchByIngredients from "../components/SearchByIngredients";
 
 const RecipesHome: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +33,7 @@ const RecipesHome: React.FC = () => {
             <>
               <RecipeOfTheDay />
               <FeaturedRecipes />
+              <SearchByIngredients />
             </>
           )
         )}

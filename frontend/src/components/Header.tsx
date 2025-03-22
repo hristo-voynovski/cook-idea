@@ -1,5 +1,3 @@
-// components/Header.tsx
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import SearchComponent from "./SearchComponent";
 import RandomRecipe from "./RandomRecipe";
