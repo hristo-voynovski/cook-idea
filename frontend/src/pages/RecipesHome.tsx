@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import RecipeCard from "../components/RecipeCard";
+import LoadingIndicator from "../components/LoadingIndicator/LoadingIndicator";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchRecipes } from "../store/slices/searchSlice";
-import RecipeOfTheDay from "../components/RecipeOfTheDay";
-import FeaturedRecipes from "../components/FeaturedRecipes";
 import SearchByIngredients from "../components/SearchByIngredients";
+
+const RecipeOfTheDay = React.lazy(() => import("../components/RecipeOfTheDay"));
+const FeaturedRecipes = React.lazy(() => import("../components/FeaturedRecipes"));
 
 const RecipesHome: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -31,9 +33,11 @@ const RecipesHome: React.FC = () => {
           !loading &&
           !error && (
             <>
-              <RecipeOfTheDay />
-              <FeaturedRecipes />
-              <SearchByIngredients />
+              <Suspense fallback={<LoadingIndicator />}>
+                <RecipeOfTheDay />
+                <FeaturedRecipes />
+                <SearchByIngredients />
+              </Suspense>
             </>
           )
         )}
