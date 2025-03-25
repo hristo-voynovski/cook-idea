@@ -33,6 +33,29 @@ export const fetchRecipes = createAsyncThunk(
   }
 );
 
+export const searchByIngredients = createAsyncThunk(
+  'search/searchByIngredients',
+  async (ingredients: string[], { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        "https://api.spoonacular.com/recipes/findByIngredients",
+        {
+          params: {
+            ingredients: ingredients.join(','),
+            number: 5,
+            ranking: 2, // Maximize used ingredients
+            ignorePantry: true,
+            apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
+          },
+        }
+      );
+      return response.data as Recipe[];
+    } catch (error) {
+      return rejectWithValue('Failed to fetch recipes by ingredients');
+    }
+  }
+);
+
 const searchSlice = createSlice({
   name: 'search',
   initialState,
@@ -59,6 +82,18 @@ const searchSlice = createSlice({
       .addCase(fetchRecipes.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string || 'Search failed';
+      })
+      .addCase(searchByIngredients.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(searchByIngredients.fulfilled, (state, action) => {
+        state.loading = false;
+        state.results = action.payload;
+      })
+      .addCase(searchByIngredients.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string || 'Search by ingredients failed';
       });
   }
 });

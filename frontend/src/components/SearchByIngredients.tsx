@@ -1,14 +1,31 @@
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import {
+  toggleIngredient,
+  clearIngredients,
+} from "../store/slices/selectedIngredientsSlice";
+import { searchByIngredients } from "../store/slices/searchSlice";
+import { useNavigate } from "react-router-dom";
 
 const SearchByIngredients: React.FC = () => {
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const selectedIngredients = useAppSelector(
+    (state) => state.selectedIngredients.ingredients
+  );
 
-  const toggleIngredient = (ingredient: string) => {
-    setSelectedIngredients((prev) =>
-      prev.includes(ingredient)
-        ? prev.filter((selected) => selected !== ingredient)
-        : [...prev, ingredient]
-    );
+  const handleToggleIngredient = (ingredient: string) => {
+    dispatch(toggleIngredient(ingredient));
+  };
+
+  const handleClearIngredients = () => {
+    dispatch(clearIngredients());
+  };
+
+  const handleSearch = async () => {
+    if (selectedIngredients.length > 0) {
+      await dispatch(searchByIngredients(selectedIngredients));
+      navigate('/search-results');
+    }
   };
 
   return (
@@ -55,16 +72,24 @@ const SearchByIngredients: React.FC = () => {
                           }
                           transition-colors
                         `}
-              onClick={() => toggleIngredient(ingredient)}
+              onClick={() => handleToggleIngredient(ingredient)}
             >
               {ingredient}
             </button>
           ))}
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-4">
+          {selectedIngredients.length > 0 && (
+            <button
+              onClick={handleClearIngredients}
+              className="bg-slate-700 hover:bg-slate-600 px-8 py-2 rounded-md text-white"
+            >
+              Clear Selection
+            </button>
+          )}
           <button
-            // onClick={searchByIngredients}
-            className="bg-green-500 hover:bg-green-600 px-8 py-2 rounded-md"
+            onClick={handleSearch}
+            className="bg-green-500 hover:bg-green-600 px-8 py-2 rounded-md text-white"
             disabled={selectedIngredients.length === 0}
           >
             Find Recipes
