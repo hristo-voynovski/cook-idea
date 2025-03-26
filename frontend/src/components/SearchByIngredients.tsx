@@ -3,12 +3,9 @@ import {
   toggleIngredient,
   clearIngredients,
 } from "../store/slices/selectedIngredientsSlice";
-import { searchByIngredients } from "../store/slices/searchSlice";
-import { useNavigate } from "react-router-dom";
 
 const SearchByIngredients: React.FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const selectedIngredients = useAppSelector(
     (state) => state.selectedIngredients.ingredients
   );
@@ -19,13 +16,6 @@ const SearchByIngredients: React.FC = () => {
 
   const handleClearIngredients = () => {
     dispatch(clearIngredients());
-  };
-
-  const handleSearch = async () => {
-    if (selectedIngredients.length > 0) {
-      await dispatch(searchByIngredients(selectedIngredients));
-      navigate('/search-results');
-    }
   };
 
   return (
@@ -78,18 +68,10 @@ const SearchByIngredients: React.FC = () => {
             </button>
           ))}
         </div>
-        <div className="flex justify-center gap-4">
-          {selectedIngredients.length > 0 && (
-            <button
-              onClick={handleClearIngredients}
-              className="bg-slate-700 hover:bg-slate-600 px-8 py-2 rounded-md text-white"
-            >
-              Clear Selection
-            </button>
-          )}
+        <div className="flex justify-center">
           <button
-            onClick={handleSearch}
-            className="bg-green-500 hover:bg-green-600 px-8 py-2 rounded-md text-white"
+            // onClick={searchByIngredients}
+            className="bg-green-500 hover:bg-green-600 px-8 py-2 rounded-md"
             disabled={selectedIngredients.length === 0}
           >
             Find Recipes
