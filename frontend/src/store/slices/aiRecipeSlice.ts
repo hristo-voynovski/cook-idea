@@ -116,7 +116,6 @@ export const generateFullRecipe = createAsyncThunk(
 
       const response = completion.choices[0]?.message?.content || 'No response';
       const cleanResponse = response.replace(/```json\n?|\n?```/g, '').trim();
-      console.log('Clean response:', cleanResponse);
       const parsedResponse = JSON.parse(cleanResponse);
       return parsedResponse;
 

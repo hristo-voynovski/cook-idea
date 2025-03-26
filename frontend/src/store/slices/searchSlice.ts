@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Recipe, SearchState } from "../../types/types";
-// import results from '../../mockData.json';
 import axios from "axios";
 
 const initialState: SearchState = {
@@ -29,7 +28,7 @@ export const searchByIngredients = createAsyncThunk(
         }
       );
 
-      return response.data.results as Recipe[];
+      return response.data as Recipe[];
     } catch (error) {
       return rejectWithValue("Failed to fetch recipes by ingredients");
     }
@@ -100,5 +99,5 @@ const searchSlice = createSlice({
   },
 });
 
-export const { setSearchQuery, clearResults } = searchSlice.actions;
+export const {  setSearchQuery, clearResults } = searchSlice.actions;
 export default searchSlice.reducer;

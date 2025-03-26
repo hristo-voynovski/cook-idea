@@ -27,8 +27,6 @@ export const fetchRecipeDetails = createAsyncThunk(
 
       const recipe = await recipeResponse.json();
       const analyzedInstructions = await InstructionsResponse.json();
-      console.log(recipe);
-      console.log(analyzedInstructions);
       return { recipe, analyzedInstructions };
     } catch (error: string | any) {
       return rejectWithValue(error.message);

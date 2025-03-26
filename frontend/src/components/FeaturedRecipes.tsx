@@ -15,14 +15,10 @@ const FeaturedRecipes = () => {
     dispatch(fetchFeaturedRecipes());
   }, [dispatch]);
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  console.log(recipes);
 
   if (!recipes) {
     return (

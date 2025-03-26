@@ -15,12 +15,6 @@ const RecipeDetails: React.FC = () => {
     (state) => state.aiRecipe.analyzedInstructions
   );
 
-  console.log(aiRecipe);
-  console.log(aiRecipe?.title);
-  console.log(aiRecipe?.extendedIngredients);
-  console.log(aiInstructions);
-  console.log(id);
-
   useEffect(() => {
     if (id && id !== "ai-generated") {
       dispatch(fetchRecipeDetails(id));
@@ -35,8 +29,6 @@ const RecipeDetails: React.FC = () => {
   const displayRecipe = id === "ai-generated" ? aiRecipe : recipe;
   const displayInstructions =
     id === "ai-generated" ? aiInstructions : analyzedInstructions;
-  console.log(displayRecipe);
-  console.log(displayInstructions);
 
   if (!displayRecipe || !displayInstructions)
     return <p className="text-center text-red-500 mt-5">Recipe not found.</p>;

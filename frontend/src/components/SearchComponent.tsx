@@ -6,19 +6,13 @@ import { setSearchQuery, fetchRecipes } from "../store/slices/searchSlice";
 const SearchComponent: React.FC = () => {
   //set a type for the searchTerm
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmedTerm = searchTerm.trim();
-    if (trimmedTerm) {
-      dispatch(setSearchQuery(trimmedTerm));
-
-      await dispatch(fetchRecipes(trimmedTerm));
-      navigate(`/`);
-
-      setSearchTerm("");
+    if (searchTerm) {
+      window.history.pushState({}, '', `?q=${encodeURIComponent(searchTerm)}`);
+      dispatch(fetchRecipes(searchTerm));
     }
   };
 

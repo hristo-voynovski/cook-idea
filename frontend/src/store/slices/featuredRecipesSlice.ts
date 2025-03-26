@@ -26,9 +26,7 @@ export const fetchFeaturedRecipes = createAsyncThunk(
             if (!response.ok) {
                 throw new Error("Failed to fetch featured recipes");
             }
-            //supabase recipe format
             const data: SupabaseRecipe[]  = await response.json();
-            console.log(data);
             return transformRecipe(data);
         } catch (error) {
             return rejectWithValue("Failed to fetch featured recipes");

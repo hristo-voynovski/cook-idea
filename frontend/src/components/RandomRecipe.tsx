@@ -8,7 +8,6 @@ const RandomRecipe: React.FC = () => {
 
   const handleClick = async () => {
     const resultFetchRandom = await dispatch(fetchRandomRecipe());
-    console.log("In handle click");
     if (fetchRandomRecipe.fulfilled.match(resultFetchRandom)) {
       const recipeId = resultFetchRandom.payload.id;
       navigate(`/recipe/${recipeId}`);
