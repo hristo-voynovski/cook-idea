@@ -4,12 +4,12 @@
  
 ### Features to add: 
 
-- [ ] Select ingredients for recipe search
-- [ ] Add ability to create profiles - Register and Log in 
+- [x] Select ingredients for recipe search
 - [ ] Improve site responsiveness  
+- [ ] Configure searchbar for mobile and desktop
  
 ### Bugs:
-- [ ] add a unified loading indicator for RecipeOfTheDay and FeaturedRecipes
+- [x] add a unified loading indicator for RecipeOfTheDay and FeaturedRecipes
 
 
 ### Write tests

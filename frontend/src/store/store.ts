@@ -6,6 +6,7 @@ import aiRecipeReducer from "./slices/aiRecipeSlice";
 import recipeOfTheDayReducer from "./slices/recipeOfTheDaySlice";
 import featuredRecipesReducer from "./slices/featuredRecipesSlice";
 import selectedIngredientsReducer from "./slices/selectedIngredientsSlice";
+import uiReducer from "./slices/uiSlice";
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         recipeOfTheDay: recipeOfTheDayReducer,
         featuredRecipes: featuredRecipesReducer,
         selectedIngredients: selectedIngredientsReducer,
+        ui: uiReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
