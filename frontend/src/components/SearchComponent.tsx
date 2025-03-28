@@ -75,7 +75,7 @@ const SearchComponent: React.FC = () => {
       )}
 
       {/* Navigation items */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-center">
         {/* Mobile search toggle */}
         {isMobile && (
           <button
@@ -83,6 +83,7 @@ const SearchComponent: React.FC = () => {
             // size="icon"
             aria-label={isSearchOpen ? "Close search" : "Open search"}
             onClick={() => dispatch(setIsSearchOpen(!isSearchOpen))}
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
             {isSearchOpen ? (
               <X className="h-5 w-5" />
