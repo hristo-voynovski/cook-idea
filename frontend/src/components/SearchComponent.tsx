@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { setSearchQuery, fetchRecipes } from "../store/slices/searchSlice";
 import { setIsMobile, setIsSearchOpen } from "../store/slices/uiSlice";
-// import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Search, X } from "lucide-react";
 
 const SearchComponent: React.FC = () => {
@@ -11,19 +9,15 @@ const SearchComponent: React.FC = () => {
   const { isMobile, isSearchOpen } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
 
-  // Check if we're on mobile
   useEffect(() => {
     const checkIfMobile = () => {
       dispatch(setIsMobile(window.innerWidth < 768));
     };
 
-    // Initial check
     checkIfMobile();
 
-    // Add event listener for window resize
     window.addEventListener("resize", checkIfMobile);
 
-    // Cleanup
     return () => window.removeEventListener("resize", checkIfMobile);
   }, [dispatch]);
 
@@ -37,9 +31,6 @@ const SearchComponent: React.FC = () => {
 
   return (
     <div className="w-full">
-      {/* Header with search */}
-
-      {/* Desktop search bar */}
       {!isMobile && (
         <form onSubmit={handleSubmit} className="w-full max-w-[24rem] mx-auto">
           <div className="relative flex h-10 w-full min-w-[200px]">
@@ -74,16 +65,12 @@ const SearchComponent: React.FC = () => {
         </form>
       )}
 
-      {/* Navigation items */}
       <div className="flex items-center justify-center">
-        {/* Mobile search toggle */}
         {isMobile && (
           <button
-            // variant="ghost"
-            // size="icon"
             aria-label={isSearchOpen ? "Close search" : "Open search"}
             onClick={() => dispatch(setIsSearchOpen(!isSearchOpen))}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             {isSearchOpen ? (
               <X className="h-5 w-5" />
@@ -93,36 +80,7 @@ const SearchComponent: React.FC = () => {
           </button>
         )}
       </div>
-
-      {/* Mobile search bar - appears below header when toggled */}
-      
     </div>
-    // <form onSubmit={handleSubmit} className="w-full">
-    //   <div className="flex items-center">
-    //     <input
-    //       type="text"
-    //       value={searchTerm}
-    //       onChange={(e) => setSearchTerm(e.target.value)}
-    //       placeholder="Search for recipes..."
-    //       className="p-2 w-full border border-gray-300 dark:border-gray-600 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-    //       aria-label="Search recipes"
-    //     />
-    //     <button
-    //       type="submit"
-    //       className="p-2 px-4 bg-green-600 text-white rounded-r-lg hover:bg-green-700 transition-colors"
-    //     >
-    //       Search
-    //     </button>
-    //   </div>
-    // </form>
-    // {isMobile && isSearchOpen && (
-        // <div className="p-3 border-b bg-background animate-in slide-in-from-top duration-300">
-        //   <div className="relative">
-        //     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-        //     {/* <Input type="search" placeholder="Search..." className="w-full pl-8 pr-4" autoFocus /> */}
-        //   </div>
-        // </div>
-     // )}
   );
 };
 

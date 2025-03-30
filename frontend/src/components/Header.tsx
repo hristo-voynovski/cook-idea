@@ -3,15 +3,14 @@ import SearchComponent from "./SearchComponent";
 import RandomRecipe from "./RandomRecipe";
 import AIRecipeButton from "./AIRecipeButton";
 import ThemeToggle from "./LoadingIndicator/ThemeToggle";
-import { useTheme } from "../context/ThemeContext";
 import { clearResults } from "../store/slices/searchSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { Menu } from "lucide-react";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isDarkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleClick = () => {
@@ -49,24 +48,14 @@ const Header: React.FC = () => {
         </div>
         {/* Mobile menu button */}
         <div className="min-[1305px]:hidden flex justify-end">
+          <ThemeToggle />
+
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
             aria-label="Toggle menu"
           >
-            <svg
-              className="w-6 h-6 text-gray-700 dark:text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            <Menu className="h-5 w-5" />
           </button>
         </div>
       </div>
@@ -74,7 +63,6 @@ const Header: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden border-t border-gray-200 dark:border-gray-700">
           <div className="flex flex-col items-center gap-4 py-4">
-            <ThemeToggle />
             <div className="px-4">
               <AIRecipeButton />
             </div>

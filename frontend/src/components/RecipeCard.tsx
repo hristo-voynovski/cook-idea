@@ -4,29 +4,24 @@ import { Recipe } from "../types/types";
 
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   return (
-    <div className="group relative overflow-hidden rounded-xl  bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 text-card-foreground shadow-sm transition-all duration-200 hover:shadow-md h-full flex flex-col">
-      <Link to={`/recipe/${recipe.id}`} className="flex flex-col h-full">
-        <div className="aspect-video w-full overflow-hidden flex-shrink-0">
+    <Link to={`/recipe/${recipe.id}`} className="block h-full">
+      <div className="group bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded-lg overflow-hidden h-full flex flex-col transition-all hover:shadow-md">
+        <div className="relative h-48">
           <img
-            src={recipe.image || "/placeholder.svg"}
+            src={recipe.image || "/images/missing-recipe-placeholder.jpg"}
             alt={recipe.title}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-            loading="lazy"
+            className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+            onError={(e) => {
+              const img = e.target as HTMLImageElement;
+              img.src = "/images/missing-recipe-placeholder.jpg";
+            }}
           />
         </div>
-
-        <div className="p-4 flex flex-col flex-grow">
-          <h3 className="line-clamp-2 text-lg font-medium">{recipe.title}</h3>
-
-          {recipe.readyInMinutes && (
-            <div className="mt-3 flex items-center gap-1 text-sm text-muted-foreground">
-              <Clock className="h-4 w-4" />
-              <span>{recipe.readyInMinutes} min</span>
-            </div>
-          )}
+        <div className="p-4 flex-1">
+          <h3 className="font-bold mb-2 line-clamp-2">{recipe.title}</h3>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 

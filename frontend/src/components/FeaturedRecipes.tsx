@@ -19,14 +19,14 @@ const FeaturedRecipes = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (!recipes) {
+  if (!recipes && !loading) {
     return (
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6 border-l-4 border-green-500 pl-3 dark:text-white">
-          Recipe of the Day
+          Featured Recipes
         </h2>
         <div className="rounded-lg border border-gray-700 overflow-hidden bg-gray-800 p-6 text-center">
-          <p>No recipe available today. Check back later!</p>
+          <p>No featured recipes available today. Check back later!</p>
         </div>
       </section>
     );
@@ -61,10 +61,6 @@ const FeaturedRecipes = () => {
                   <Clock className="w-3 h-3 mr-1 text-green-500" />
                   <span>{recipe?.readyInMinutes || "30"} min</span>
                 </div>
-                {/* <div className="flex items-center">
-                  <Star className="w-3 h-3 mr-1 text-yellow-400 fill-yellow-400" />
-                  {recipe.rating}
-                </div> */}
               </div>
             </div>
             <div className="p-4 pt-0">

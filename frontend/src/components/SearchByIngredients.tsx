@@ -31,8 +31,8 @@ const SearchByIngredients: React.FC = () => {
       </h2>
       <div className="bg-gray-100 dark:bg-slate-800 rounded-lg p-6 shadow-md">
         <div className="flex justify-between items-center mb-4">
-          <p className="text-gray-600 dark:text-slate-400 py-1">
-            Select ingredients you have and find matching recipes
+          <p className="text-green-500 py-1">
+            Select the ingredients you have and find matching recipes:
           </p>
           {selectedIngredients.length > 0 && (
             <button

@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchRecipeOfTheDay } from "../store/slices/recipeOfTheDaySlice";
 import { Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import LoadingIndicator from "./LoadingIndicator/LoadingIndicator";
 
 const RecipeOfTheDay: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,14 +20,17 @@ const RecipeOfTheDay: React.FC = () => {
     return <div>Error: {error}</div>;
   }
 
+  if (loading) {
+    return <LoadingIndicator />;
+  }
 
-  if (!recipe) {
+  if (!recipe && !loading) {
     return (
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6 border-l-4 border-green-500 pl-3 dark:text-white">
           Recipe of the Day
         </h2>
-        <div className="rounded-lg border border-gray-700 overflow-hidden bg-gray-800 p-6 text-center">
+        <div className="rounded-lg border border-gray-700 overflow-hidden dark:bg-gray-800 p-6 text-center">
           <p>No recipe available today. Check back later!</p>
         </div>
       </section>
@@ -51,8 +55,8 @@ const RecipeOfTheDay: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-0">
           <div className="relative h-[240px] overflow-hidden">
             <img
-              src={recipe.image}
-              alt={recipe.title}
+              src={recipe?.image}
+              alt={recipe?.title}
               className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
               onError={(e) => {
                 const img = e.target as HTMLImageElement;
@@ -71,7 +75,7 @@ const RecipeOfTheDay: React.FC = () => {
               </h3>
 
               <p className="text-gray-600 dark:text-gray-300 mb-3 text-sm line-clamp-2">
-                {recipe.summary.replace(/<[^>]*>/g, "") ||
+                {recipe?.summary.replace(/<[^>]*>/g, "") ||
                   "A delicious recipe perfect for any occasion."}
               </p>
 
@@ -85,7 +89,7 @@ const RecipeOfTheDay: React.FC = () => {
 
             <button 
             className="w-full px-3 py-4 text-xs font-medium rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none"
-            onClick={() => navigate(`/recipe/${recipe.id}`)}
+            onClick={() => navigate(`/recipe/${recipe?.id}`)}
             >
               View Recipe
             </button>
