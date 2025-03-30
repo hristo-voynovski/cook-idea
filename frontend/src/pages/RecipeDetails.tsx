@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchRecipeDetails } from "../store/slices/recipeDetailsSlice";
 import { AnalyzedInstruction } from "../types/types";
+import { Clock } from "lucide-react";
 
 const RecipeDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -50,12 +51,18 @@ const RecipeDetails: React.FC = () => {
                   className="w-full rounded-lg shadow-lg dark:shadow-gray-500"
                 />
               </div>
+              <div className="relative flex justify-end pt-2">
+                <div className="flex items-center bg-gray-200 dark:bg-gray-800 rounded-lg p-2">
+                  <Clock className="w-3 h-3 mr-1 text-green-500" />
+                  <span>{displayRecipe?.readyInMinutes || "30"} min</span>
+                </div>
+              </div>
             </div>
 
             {/* Ingredients */}
             {displayRecipe.extendedIngredients?.length > 0 && (
               <div className="lg:w-1/2 mt-6 lg:mt-0 lg:flex lg:flex-col lg:justify-center">
-                <h2 className="text-2xl font-semibold mb-4 text-right dark:text-white">
+                <h2 className="text-2xl font-semibold mb-4 text-left dark:text-white">
                   Ingredients:
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
@@ -76,6 +83,12 @@ const RecipeDetails: React.FC = () => {
         ) : (
           displayRecipe.extendedIngredients?.length > 0 && (
             <div className="w-full max-w-2xl mx-auto">
+              <div className="flex justify-center mb-4">
+                <div className="flex items-center bg-gray-200 dark:bg-gray-800 rounded-lg p-2">
+                  <Clock className="w-3 h-3 mr-1 text-green-500" />
+                  <span>{displayRecipe?.readyInMinutes || "30"} min</span>
+                </div>
+              </div>
               <h2 className="text-2xl font-semibold mb-4 text-center dark:text-white">
                 Ingredients:
               </h2>
