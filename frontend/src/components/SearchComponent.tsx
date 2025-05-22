@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { setSearchQuery, fetchRecipes } from "../store/slices/searchSlice";
+import { fetchRecipes } from "../store/slices/searchSlice";
 import { setIsMobile, setIsSearchOpen } from "../store/slices/uiSlice";
 import { Search, X } from "lucide-react";
 

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Clock } from "lucide-react";
 import { Recipe } from "../types/types";
 
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
