@@ -11,12 +11,7 @@ const FeaturedRecipes = React.lazy(() => import("../components/FeaturedRecipes")
 const RecipesHome: React.FC = () => {
   const dispatch = useAppDispatch();
   const { results, loading, error } = useAppSelector((state) => state.search);
-  const recipeOfTheDayLoading = useAppSelector((state) => state.recipeOfTheDay.loading);
-  const featuredRecipesLoading = useAppSelector((state) => state.featuredRecipes.loading);
 
-  console.log(results);
-
-  console.log(recipeOfTheDayLoading, featuredRecipesLoading);
   useEffect(() => {
     const urlQuery = new URLSearchParams(window.location.search).get("q");
     if (urlQuery) {
