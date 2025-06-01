@@ -23,7 +23,7 @@ export const fetchRecipeOfTheDay = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/recipes/recipe-of-the-day`
+        `${process.env.REACT_APP_API_URL}/api/recipes/recipe-of-the-day`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch recipe of the day");

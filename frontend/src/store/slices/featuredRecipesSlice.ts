@@ -22,7 +22,7 @@ export const fetchFeaturedRecipes = createAsyncThunk(
     "featuredRecipes/fetchFeaturedRecipes",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch("http://localhost:5000/api/recipes/featured-recipes");
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/recipes/featured-recipes`);
             if (!response.ok) {
                 throw new Error("Failed to fetch featured recipes");
             }
