@@ -2,7 +2,8 @@
 
 **CookIdea** is a smart recipe recommendation app designed to inspire home cooks with personalized meal ideas. Using the Spoonacular API and AI-powered recipe generation, CookIdea helps users discover and create recipes based on their available ingredients, dietary preferences, or cravings. The app features an intuitive interface where users can browse, save, and revisit their favorite recipes. With seamless navigation, recipe details open in a dedicated view for easy reading. CookIdea is perfect for anyone looking to simplify meal planning while exploring new and unique culinary ideas.
 
-## [Check it out here!](https://cook-idea.vercel.app/)
+## [Check it out here!](https://cook-idea.vercel.app/) 
+*(It may take up to a minute for the backend on Render to spin up. Please be patient.)*
 
 ## Getting Started  
 
